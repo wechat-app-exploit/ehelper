@@ -1,7 +1,11 @@
 {
   "pages": [
     "pages/mine/mine",
-    "pages/mine/list/list",
+    "pages/mine/lists/list_todo",
+    "pages/mine/lists/list_done",
+    "pages/mine/lists/list_undone",
+    "pages/mine/highest/highest",
+    "pages/mine/analysis/analysis",
     "pages/sche/sche",
     "pages/index/index",
     "pages/userConsole/userConsole",

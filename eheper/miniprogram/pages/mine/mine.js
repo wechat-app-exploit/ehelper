@@ -11,7 +11,7 @@ Page({
     openid: ''
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     //从本地存储中读取
     let username = wx.getStorageSync('username');
     let avatarUrl = wx.getStorageSync('avatarUrl');
@@ -27,7 +27,7 @@ Page({
     }
   },
 
-  onGetUserInfo: function(e) {
+  onGetUserInfo: function (e) {
     console.log(e);
     let d = e.detail.userInfo;
     this.setData({
@@ -59,13 +59,38 @@ Page({
   },
 
 
-  showList: function() {
+  //我的日程分布
+  showHighest: function () {
     wx.navigateTo({
-      url: 'list/list',
+      url: 'highest/highest',
     })
   },
-
-  showInfo: function() {
+  //我的完成情况
+  showAnalysis: function () {
+    wx.navigateTo({
+      url: 'analysis/analysis',
+    })
+  },
+  //待完成日程
+  showListTodo: function () {
+    wx.navigateTo({
+      url: 'lists/list_todo',
+    })
+  },
+  //已完成日程
+  showListDone: function () {
+    wx.navigateTo({
+      url: 'lists/list_done',
+    })
+  },
+  //未完成日程
+  showListUndone: function () {
+    wx.navigateTo({
+      url: 'lists/list_undone',
+    })
+  },
+  //关于
+  showInfo: function () {
     wx.showModal({
       title: 'EasierHelper',
       content: '希望这是大家生活中的小惊喜。',

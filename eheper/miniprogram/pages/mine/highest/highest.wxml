@@ -1,0 +1,15 @@
+<!--pages/mine/highest/highest.wxml-->
+
+<view class='container'>
+
+  <view class='list' wx:for='{{sche_list}}' wx:key='_id'>
+      <view class='title'>标题: {{item.title}}</view>
+      <view class='time'>时间: {{item.due}}</view>
+      <view class='status'>    
+        <view wx:if='{{item.status == 0}}'>完成度：待完成</view>
+        <view wx:elif='{{item.status == 1}}'>完成度：已完成</view>
+        <view wx:else>完成度：未完成</view>
+      </view>
+  </view>
+
+</view>
