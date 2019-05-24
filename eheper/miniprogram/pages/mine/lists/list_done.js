@@ -16,10 +16,11 @@ Page({
     table.where({
       _openid: openid,
       status: 1
-    }).get({
+    }).orderBy('due', 'desc').get({ //时间越大越靠前
       success: res => {
-        // console.log(res.data);
-        // console.log(this);
+        for (let i = 0; i < res.data.length; i++) {
+          res.data[i].due = res.data[i].due.toLocaleDateString() + '  ' + res.data[i].due.toLocaleTimeString();
+        }
         this.setData({
           sche_list: res.data
         })

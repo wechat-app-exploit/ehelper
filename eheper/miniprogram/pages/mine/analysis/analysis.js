@@ -2,72 +2,72 @@
 
 const app = getApp()
 
+const regeneratorRuntime = require('../../../utils/regenerator/runtime-module');
+
 Page({
 
   data: {
-    todoNum: 10, //待完成日程数目  status:0
-    doneNum: 10, //已完成日程数目  status:1
-    undoneNum: 10, //未完成日程数目  status:2
+    todoNum: 0, //待完成日程数目  status:0
+    doneNum: 0, //已完成日程数目  status:1
+    undoneNum: 0, //未完成日程数目  status:2
+    showed: false,
   },
 
-  onLoad: function (options) {
+  onLoad: async function() {
     const db = wx.cloud.database({}); //获取数据库的引用
     const table = db.collection('schedule'); //获取该集合的引用
     let openid = app.globalData.openid;
     let _this = this;
     //todoNum
-    table.where({
+    let todoNum = 0;
+    await table.where({
       _openid: openid,
       status: 0
     }).count().then(res => {
-      this.setData({
-        todoNum: res.total
-      })
-      app.globalData.priorityArr[0] = this.data.todoNum
+      todoNum = res.total
     });
     //doneNum
-    table.where({
+    let doneNum = 0;
+    await table.where({
       _openid: openid,
       status: 1
     }).count().then(res => {
-      this.setData({
-        doneNum: res.total
-      })
-      app.globalData.priorityArr[1] = this.data.doneNum
+      doneNum = res.total
     });
     //undoneNum
-    table.where({
+    let undoneNum = 0;
+    await table.where({
       _openid: openid,
       status: 2
     }).count().then(res => {
-      this.setData({
-        undoneNum: res.total
-      })
-      app.globalData.priorityArr[2] = this.data.undoneNum
+      undoneNum = res.total
     });
-
-    console.log(app.globalData.priorityArr[0])
-    
+    this.setData({
+      todoNum: todoNum,
+      doneNum: doneNum,
+      undoneNum: undoneNum
+    })
   },
 
-  onReady: function () {
-
-    
-
-    var context = wx.createCanvasContext('Canvas');
-    var array = [20, 50, 60];
-    var colors = ["#228B22", "#008B8B", "#ADFF2F"];
-    var total = 0;
-    for (var val = 0; val < array.length; val++) {
+  //我的完成情况
+  show: function (){
+    this.setData({
+      showed: true
+    });
+    let context = wx.createCanvasContext('Canvas');
+    let array = [this.data.todoNum, this.data.doneNum, this.data.undoneNum];
+    let colors = ['#FFD700', '#B4EEB4', '#B3B3B3'];
+    let total = 0;
+    for (let val = 0; val < array.length; val++) {
       total += array[val];
     }
-    var point = { x: 160, y: 120 };
-    var radius = 100;
-    for (var i = 0; i < array.length; i++) {
+    let point = { x: 160, y: 120 };
+    let radius = 100;
+    for (let i = 0; i < array.length; i++) {
       context.beginPath();
-      var start = 0;
+      let start = 0;
       if (i > 0) {
-        for (var j = 0; j < i; j++) {
+        for (let j = 0; j < i; j++) {
           start += array[j] / total * 2 * Math.PI;
         }
       }

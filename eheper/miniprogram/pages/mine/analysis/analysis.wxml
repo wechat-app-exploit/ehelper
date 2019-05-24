@@ -1,18 +1,21 @@
 <!--pages/mine/analysis/analysis.wxml-->
 
-<text>{{totalNum}}</text>
-<text>{{todoNum}}</text>
-<text>{{doneNum}}</text>
-<text>{{undoneNum}}</text>
-<text>{{highestNum}}</text>
-<text>{{higher}}</text>
-<text>{{high}}</text>
-
 <view class='container'>
-  <view class='total'>累计发布日程数: {{todoNum+doneNum+undoneNum}}</view>
-  <view class='total'>完成度饼状图</view>
-  <view class='total'>重要性雷达图</view>
+  <button hover-class='hover' class='status' bindtap='show'>点击查看我的完成情况</button>
+  <view wx:if='{{showed}}' class='data'>
+    <view class='total'>累计发布日程数: {{todoNum+doneNum+undoneNum}}</view>
+    <view class='list'>
+      <button class='color todo'></button>
+      <text class='text'>待完成: {{todoNum}}</text>
+    </view>
+    <view class='list'>
+      <button class='color done'></button>
+      <text class='text'>已完成: {{doneNum}}</text>
+    </view>
+    <view class='list'>
+      <button class='color undone'></button>
+      <text class='text'>未完成: {{undoneNum}}</text>
+    </view>
+  </view>
+  <canvas canvas-id="Canvas" style="width:100%;height:360px;"></canvas>
 </view>
-
-<!--通过canvas-id引入canvas-->
-<canvas canvas-id="Canvas" style="width:100%;height:360px;"></canvas>
